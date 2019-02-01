@@ -10,7 +10,7 @@ moment().format();
 	if(command === "concert-this"){
   axios.get("https://rest.bandsintown.com/artists/" + question + "/events?app_id=codingbootcamp").then(
     function(response) {
-      console.log("Upcoming concert: " + response.data[0].venue.name + ", " + response.data[0].venue.city + ", " + response.data[0].venue.country + moment(response.data[0].datetime).format());
+      console.log("Upcoming concert: " + response.data[0].venue.name + ", " + response.data[0].venue.city + ", " + response.data[0].venue.country + " " + moment(response.data[0].datetime).format("MM-DD-YYYY"));
     }
 )};
 
@@ -20,14 +20,13 @@ moment().format();
 
 var spotify = new Spotify(keys.spotify);
 
-spotify
-  .request('https://api.spotify.com/v1/tracks/' + question + '/7yCPwWs66K8Ba5lFuU2bcx')
-  .then(function(data) {
-    console.log(data);
-  })
-  .catch(function(err) {
-    console.error('Error occurred: ' + err);
-  });
+spotify.search({ type: 'track', query: 'All the Small Things' }, function(err, data) {
+  if (err) {
+    return console.log('Error occurred: ' + err);
+  }
+
+console.log(data);
+});
 	}
 	if(command[2] === "movie-this"){
 
